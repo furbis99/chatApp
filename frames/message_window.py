@@ -5,7 +5,7 @@ from PIL import Image, ImageTk
 
 class MessageWindow(tk.Canvas):
     def __init__(self,container,*args,**kwargs):
-        super().__init__(container,*args,**kwargs)
+        super().__init__(container,*args,**kwargs,highlightthickness=0)
 
         # Frame that is contained in the canvas
         self.message_frame = ttk.Frame(container)
@@ -28,8 +28,9 @@ class MessageWindow(tk.Canvas):
         self.bind_all('<MouseWheel>',self._on_mousewheels)
 
         # Scrollbar Widget
-        scrollbar = ttk.Scrollbar(container)
+        scrollbar = ttk.Scrollbar(container,orient="vertical",command=self.yview)
         scrollbar.grid(row=0,column=1,sticky="NS")
+
         self.configure(yscrollcommand=scrollbar.set)
         self.yview_moveto(1.0)
 
@@ -64,14 +65,15 @@ class MessageWindow(tk.Canvas):
         
 
     def _create_message_buble(self,container, message_content,message_time,message_labels):
-        # Image
-        avatar_image = Image.open("./assets/user.png")
-        avatar_image.resize((5,5))
-        avatar_photo = ImageTk.PhotoImage(avatar_image)
+        #  Image
+        #TODO: resize the image label 
+        #avatar_image = Image.open("./assets/user.png")
+        #avatar_image.resize((5,5))
+       # avatar_photo = ImageTk.PhotoImage(avatar_image)
 
         # Image Label 
-        avatar_label = tk.Label(container,image=avatar_photo)
-        avatar_label.grid(row=0,column=0,rowspan=2,sticky="NEW",padx=(0,10),pady=(5,0))
+        #avatar_label = tk.Label(container,image=avatar_photo)
+        #avatar_label.grid(row=0,column=0,rowspan=2,sticky="NEW",padx=(0,10),pady=(5,0))
         
         # Labels message
         time_label = ttk.Label(container,text=message_time)
