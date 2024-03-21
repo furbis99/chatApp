@@ -8,7 +8,7 @@ class MessageWindow(tk.Canvas):
         super().__init__(container,*args,**kwargs,highlightthickness=0)
 
         # Frame that is contained in the canvas
-        self.message_frame = ttk.Frame(container)
+        self.message_frame = ttk.Frame(container,style='Messages.TFrame')
         self.message_frame.columnconfigure(0,weight=1)
 
         # Config scrollable window
@@ -47,7 +47,6 @@ class MessageWindow(tk.Canvas):
         
         
         for message in messages: # loop through the global variable
-            print(type(int(message["date"]))) #! TEST DEL
             message_time = datetime.datetime.fromtimestamp(int(message["date"])).strftime("%d-%m-%Y %H:%M:%S")
             
             if (message["message"],message_time) not in existing_labels: # Evaluates if it is a new message
@@ -72,11 +71,11 @@ class MessageWindow(tk.Canvas):
        # avatar_photo = ImageTk.PhotoImage(avatar_image)
 
         # Image Label 
-        #avatar_label = tk.Label(container,image=avatar_photo)
+        #avatar_label = tk.Label(container,image=avatar_photo,style='Avatar.TLabel')
         #avatar_label.grid(row=0,column=0,rowspan=2,sticky="NEW",padx=(0,10),pady=(5,0))
         
         # Labels message
-        time_label = ttk.Label(container,text=message_time)
+        time_label = ttk.Label(container,text=message_time,style='Time.TLabel')
         time_label.grid(row=0,column=1,sticky="NEW")
 
         # if it is a new message create a label
@@ -84,7 +83,8 @@ class MessageWindow(tk.Canvas):
             container,
             text = message_content,
             anchor="w",
-            justify="left"
+            justify="left",
+            style='Message.TLabel'
         )
 
         new_message.grid(row=1,column=1,sticky="NSEW") # show label
